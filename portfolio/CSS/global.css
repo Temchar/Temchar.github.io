@@ -1,0 +1,281 @@
+@charset "UTF-8";
+
+/* --- basic shit --- */
+/*define global variables- fiddle with these if you don't like the way the site looks*/
+:root {
+  /*define global variables*/
+  --background: #222;
+  --content-background: #ddd;
+  --accent: orange;
+  --border-width: 3px;
+  --border-raidius: 5px;
+  --navbar-margin: 2%;
+  /* there's some weird shit going on with the dropdown. it shifts all the buttons down if there is a dropdown present in the navbar. if you get a bug where the buttons are too high / low, fiddle with this. */
+  --fucky-button-offset: -13.5px;
+}
+
+/*define global attributes- gets applied to every element on the page*/
+* {
+  /*define global font*/
+  font-family: 'Oxygen', sans-serif;
+  /*debug backgrounds
+  background-color: rgba(0, 0, 0, 0.1);*/
+}
+
+body {
+  background-color: var(--background);
+}
+
+/* --- navbar styling --- */
+/* --- navbar styling --- */
+/* keep sticky element in the top left of the screen */
+.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 37px;
+ /* - same kinda look as content - */
+ /* can't just do width: 100%;. you have to compensate for the width of the border. */
+ width: calc(100% - calc( calc( var(--border-width) * 2) + calc( var(--navbar-margin) * 2)));
+ margin: var(--navbar-margin);
+ margin-bottom: 0 !important;
+ padding: 0;
+ border: solid var(--accent) var(--border-width);
+ border-radius: var(--border-raidius);
+ background-color: var(--content-background);
+ box-shadow: 5px 5px 20px black ;
+ }
+
+ .navbar {
+   /* position element */
+   margin: 0;
+   padding: 0;
+ }
+
+ /* tell the blue underlines on links to fuck off */
+ .navbar a {
+   color: black;
+   text-decoration: none;
+ }
+
+ /* style the buttons n shit */
+ .navbar .button{
+   top: 0;
+   display: inline-block;
+   padding: 7px 10px 10px 10px;
+   margin: 0;
+   background-color: #ddd;
+   border-right: solid var(--accent) calc(var(--border-width) / 2);
+   border-left: solid var(--accent) calc(var(--border-width) / 2);
+   transition: background-color 0.3s ease;
+   transition-delay: 0.2s;
+   transform: translateY(var(--fucky-button-offset));
+ }
+
+ /* round the edges of the first item in the navbar so its edges don't go over the border */
+ .navbar .button:first-of-type {
+   --inside-border-raidius: calc(var(--border-raidius) - var(--border-width));
+   border-radius: var(--inside-border-raidius) 0 0 var(--inside-border-raidius);
+   /* get rid of the left border as well */
+   border-left: none;
+ }
+
+ /* regular link hover effects */
+ .navbar .button:hover{
+   background-color: #aaa;
+   transition-delay: 0s !important;
+ }
+
+ /* -- dropdown styling -- */
+
+ .dropdown {
+   margin: 0 !important;
+   padding: 0 !important;
+   margin-right: 5px !important;
+   display: inline-block;
+   height: 37px;
+   transition: transform 0.3s ease;
+ }
+
+ .dropdown .button {
+   border-radius: 0 !important;
+   border-left: solid var(--accent) calc(var(--border-width) / 2) !important;
+   margin-bottom: 50px;
+   white-space: nowrap;
+ }
+
+ .dropdown-content {
+   display: inline-block !important;
+   padding: 0 !important;
+   margin: 0 !important;
+   max-width: 0px;
+   height: 37px;
+   overflow:hidden;
+   transition: ease;
+   transition-duration: 0.3s;
+   --fucky-button-offset: 0;
+   background-color: var(--content-background);
+ }
+
+ /* show dropdown contnet when you haver over it */
+ .dropdown:hover .dropdown-content {
+  display: inline-block !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  max-width: 1000px !important;
+  transition: ease;
+  transition-duration: 0.3s;
+ }
+
+ .dropdown:hover {
+   transition: transform 0.2s ease;
+   transform: translateX(var(--dropdown-hover-slide));
+   background-color: var(--content-background);
+ }
+
+ .dropdown:hover .button {
+   background-color: #aaa;
+ }
+
+ .dropdown:hover .dropdown-content .button {
+   background-color: var(--content-background);
+ }
+
+ .dropdown-content:hover .button:hover {
+   background-color: #aaa;
+ }
+
+ .dropdown-content a {
+   display: inline;
+ }
+ 
+ /* -- dropdown styling -- */
+ 
+ .dropdown {
+   margin: 0 !important;
+   padding: 0 !important;
+   margin-right: 5px !important;
+   display: inline-block;
+   height: 37px;
+ }
+ 
+ .dropdown .button {
+   border-radius: 0 !important;
+   border-left: solid var(--accent) calc(var(--border-width) / 2) !important;
+   margin-bottom: 50px;
+   white-space: nowrap;
+ }
+ 
+ .dropdown-content {
+   display: inline-block !important;
+   padding: 0 !important;
+   margin: 0 !important;
+   max-width: 0px;
+   height: 37px;
+   overflow:hidden;
+   transition: ease;
+   transition-duration: 0.3s;
+   --fucky-button-offset: 0;
+   background-color: var(--content-background);
+ }
+ 
+ /* show dropdown contnet when you haver over it */
+ .dropdown:hover .dropdown-content {
+  display: inline-block !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  max-width: 1000px !important;
+  transition: ease;
+  transition-duration: 0.3s;
+ }
+ 
+ .dropdown:hover .button {
+   background-color: #aaa;
+ }
+ 
+ .dropdown:hover .dropdown-content .button {
+   background-color: var(--content-background);
+ }
+ 
+ .dropdown-content:hover .button:hover {
+   background-color: #aaa;
+ }
+ 
+ .dropdown-content a {
+   display: inline;
+ }
+
+/* --- content styling --- */
+/*style the area around everything thats not the navbar*/
+.content {
+  /* forefit 20% of our screen realestate to the style gods */
+  width: 80%;
+  /* get in the middle you rat bastard */
+  margin: 120px auto;
+  /* allow for .content and .section to get up close and personal */
+  padding: 0;
+  /* accent colored border around all content */
+  border: solid var(--accent) var(--border-width);
+  border-radius: var(--border-raidius);
+  /* set content background */
+  background-color: var(--content-background);
+  /* space stuff down from the top n shit */
+  margin-top: calc(var(--navbar-margin) * 2 + 37px + calc(var(--border-width) * 3));
+}
+
+.section {
+/* keep childrien from beig right up on the border */
+padding: 0 5%;
+
+  /* give little visual indicators about what content is related and what is not using borders */
+  border: solid var(--accent) var(--border-width);
+  border-left-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+}
+
+/* eliminate double borders at the top if there is no page title */
+.section:first-child {
+  border-top-width: 0;
+}
+
+p {
+  text-align: justify;
+}
+
+/* style page title */
+h1 {
+  padding: 0 5%;
+}
+
+/* -- image styling -- */
+img {
+  float: right;
+  border: solid var(--accent) var(--border-width);
+  border-radius: var(--border-raidius);
+  margin: 0 10px;
+  margin-right: 0;
+  width: ;
+  object-fit: fill;
+}
+
+.img-L, .img-A:nth-of-type(even) {
+  float: left;
+  margin-right: 10px;
+  margin-left: 0;
+}
+
+
+
+.robotics{
+	padding-left: 174px;
+}
+.live {
+font-family: ephesis;}
+
+h5{
+	color:#ddd;
+}
+
+.logo {
+	border: 0px;
+	padding-right:10px;
+	border-radius: 0px;
